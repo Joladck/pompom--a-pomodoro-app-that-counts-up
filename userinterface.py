@@ -1,4 +1,4 @@
-from  PyQt6.QtWidgets import (QWidget,QHeaderView,QLabel, QMainWindow,QApplication,QVBoxLayout,QWidget,QPushButton)
+from  PyQt6.QtWidgets import (QWidget,QDockWidget, QHeaderView,QLabel, QMainWindow,QApplication,QVBoxLayout,QWidget,QPushButton)
 from PyQt6.QtCore import Qt,QSize
 import threading as th
 import time
@@ -19,6 +19,14 @@ class mwindow(QMainWindow):
         self.timerlabel.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.startbutton=QPushButton("Begin Timer")
         self.startbutton.clicked.connect(self.thread_activate)
+
+        #dock
+        self.dockarea=QDockWidget(self)
+        self.pompom_tracker=QWidget(self)
+        self.pompom_layout=QVBoxLayout(self)
+        self.pompom_tracker.setLayout(self.pompom_layout)
+
+
 
         #central widget init
         self.timer_widget=QWidget()
@@ -47,9 +55,6 @@ class mwindow(QMainWindow):
         self.lhour+=self.h
         self.lmin+=self.m
 
-    def update_data(self):
-        pass
-
     def update_ui(self):
         
         formating={
@@ -67,8 +72,7 @@ class mwindow(QMainWindow):
 
     def th_init(self):
         self.timer_thread=th.Thread(target=self.begin_timer,name='Timer')
-        self.courrier_thread=th.Thread(target=self.update_data,name='Messenger')
-        self.ui_update_thread=th.Thread(target=self.update_ui,name='ui update')
+        self.ui_update_thread=th.Thread(target=self.update_ui,name='UI Messenger')
 
     def thread_activate(self):
          self.timer_thread.start()
