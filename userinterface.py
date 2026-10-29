@@ -9,10 +9,6 @@ class mwindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        
-        
-        #self.setLayout(self.mlayout)
-
         self.lhour=0
         self.lmin=0
         self.lsec=0
@@ -47,6 +43,9 @@ class mwindow(QMainWindow):
                 cur_time=time.time()
                 self.ms,self.s,self.m,self.h=pompom_utils.timer_format(cur_time-start_time)
                 #print(f"{self.h}:{self.m}:{self.s}:{self.ms}")
+        
+        self.lhour+=self.h
+        self.lmin+=self.m
 
     def update_data(self):
         pass
